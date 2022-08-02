@@ -37,7 +37,7 @@ body {
 .btn {
   font-family: 'Quicksand', sans-serif;
   position: absolute;
-  bottom: 1em;
+  bottom: 2em;
   right: 0em;
   z-index: 2;
 }
