@@ -18,7 +18,6 @@ function Map() {
   } = useValue()
   
  const geolocateControlRef = React.useCallback((ref) => {
-  // console.log(lng);
     if (ref) {
       // Activate as soon as the control is loaded
       setTimeout(() => {
@@ -47,10 +46,11 @@ function Map() {
         />
         <NavigationControl/>
         <GeolocateControl
-          trackUserLocation
           ref={geolocateControlRef}
-          rotateEnabled={true}
-          showsUserLocation={true}
+          enableHighAccuracy={true}
+          trackUserLocation
+          // showUserHeading={true}
+          // showsUserLocation={true}
           onGeolocate={(e) =>
             dispatch({
               type: "UPDATE_LOCATION",

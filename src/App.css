@@ -12,9 +12,13 @@ body {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media only screen and (max-width: 600px) {
+  .btn {
+    font-family: 'Quicksand', sans-serif;
+    position: absolute;
+    bottom: 3em;
+    right: 0em;
+    z-index: 2;
   }
 }
 
@@ -37,7 +41,7 @@ body {
 .btn {
   font-family: 'Quicksand', sans-serif;
   position: absolute;
-  bottom: 2em;
+  bottom: 1em;
   right: 0em;
   z-index: 2;
 }
