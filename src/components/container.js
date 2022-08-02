@@ -18,7 +18,7 @@ function Map() {
   } = useValue()
   
  const geolocateControlRef = React.useCallback((ref) => {
-  console.log(lng);
+  // console.log(lng);
     if (ref) {
       // Activate as soon as the control is loaded
       setTimeout(() => {

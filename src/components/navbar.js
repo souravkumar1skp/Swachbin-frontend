@@ -12,7 +12,6 @@ function Navbar() {
         state: {
           login: {x},
         },
-        dispatch,
       } = useValue()
 
     return (
