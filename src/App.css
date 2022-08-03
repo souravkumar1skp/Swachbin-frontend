@@ -12,16 +12,6 @@ body {
   pointer-events: none;
 }
 
-@media only screen and (max-width: 600px) {
-  .btn {
-    font-family: 'Quicksand', sans-serif;
-    position: absolute;
-    bottom: 3em;
-    right: 0em;
-    z-index: 2;
-  }
-}
-
 .App-link {
   color: #61dafb;
 }
@@ -41,7 +31,7 @@ body {
 .btn {
   font-family: 'Quicksand', sans-serif;
   position: absolute;
-  bottom: 1em;
+  bottom: 2em;
   right: 0em;
   z-index: 2;
 }
