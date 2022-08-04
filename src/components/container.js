@@ -27,17 +27,18 @@ function Map() {
   }, []);
 
 
-  return (
+ return (
     <div className="map">
       <ReactMapGL
         initialViewState={{
           longitude: lng,
           latitude: lat,
-          zoom: 2
+          zoom: 9
         }}
         style={{ width: "100%", height: "100%" }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/sourav-kumar/cl3oj1dm3002c15mm2mwsy76f"
+        // mapStyle= "mapbox://styles/mapbox/light-v10"
         pitch={50}
       >
         <Marker
