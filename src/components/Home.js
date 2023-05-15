@@ -13,7 +13,8 @@ function Home() {
     <div>
       <Navbar />
         <div id="upper">
-          <div className="map"><Map /></div>
+          {/* <div className="map"><Map /></div> */}
+          <Map />
           <div className="btn">
           <Grow in='true'>
           <ul style={{display: 'flex', flexDirection:'row'}}>

@@ -1,68 +1,50 @@
-import React from "react";
-import ReactMapGL, {
-  GeolocateControl,
-  Marker,
-  NavigationControl,
-} from "react-map-gl";
-import "../App.css";
-import { useValue } from "../context/ContextProvider";
-import "mapbox-gl/dist/mapbox-gl.css";
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import './Map.css'
 
-function Map() {
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-  const {
-    state: {
-      location: { lng, lat },
-    },
-    dispatch,
-  } = useValue()
+const Map = () => {
+  const mapContainer = useRef(null);
+  const [lng, setLng] = useState(77.378);
+  const [lat, setLat] = useState(28.624);
+  // const [zoom, setZoom] = useState(1);
   
- const geolocateControlRef = React.useCallback((ref) => {
-    if (ref) {
-      // Activate as soon as the control is loaded
-      setTimeout(() => {
-        ref.trigger();
-      }, 2500);
-    }
-  }, []);
+  useEffect(() => {
+    const geolocateControl = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    });
 
+    geolocateControl.on('geolocate', e => {
+      setLat(e.coords.latitude);
+      setLng(e.coords.longitude);
+    });
+    
+    setTimeout(() => {
+      geolocateControl.trigger();
+    }, 2500);
 
- return (
-    <div className="map">
-      <ReactMapGL
-        initialViewState={{
-          longitude: lng,
-          latitude: lat,
-          zoom: 9
-        }}
-        style={{ width: "100%", height: "100%" }}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/sourav-kumar/cl3oj1dm3002c15mm2mwsy76f"
-        // mapStyle= "mapbox://styles/mapbox/light-v10"
-        pitch={50}
-      >
-        <Marker
-          longitude={lng}
-          latitude={lat}
-        />
-        <NavigationControl/>
-        <GeolocateControl
-          ref={geolocateControlRef}
-          enableHighAccuracy={true}
-          trackUserLocation
-          showUserHeading={true}
-          showsUserLocation={true}
-          onGeolocate={(e) =>
-            dispatch({
-              type: "UPDATE_LOCATION",
-              payload: { lng: e.coords.longitude, lat: e.coords.latitude},
-            })
-          }
-        />
-          
-      </ReactMapGL>
-    </div>
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lat, lng],
+      zoom: 1,
+      projection: 'globe'
+    });
+    
+    map.addControl(geolocateControl);
+    
+    return () => map.remove();
+  });
+
+  return (
+    <>
+      <div id='map' ref={mapContainer} className="map-container" />
+    </>
   );
-}
+};
 
 export default Map;
