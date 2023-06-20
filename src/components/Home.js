@@ -47,7 +47,7 @@ fetch("https://swachbin-sever.onrender.com/add", requestOptions)
           <Map />
           {/* <div className="btn"> */}
           <Grow in='true'>
-          <ul style={{display: 'flex', flexDirection:'row', position: "absolute", bottom: 1, right: 0}}>
+          <ul style={{display: 'flex', flexDirection:'row', position: "absolute", bottom: "2.5rem", right: 0}}>
             
             <li className="hover">
             <Button type="submit" variant="contained" sx={{borderRadius: 50, color: grey[150], margin:'5px'}} startIcon={<TravelExploreRoundedIcon/>}>locate</Button>

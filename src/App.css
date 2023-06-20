@@ -12,16 +12,6 @@ body {
   pointer-events: none;
 }
 
-@media only screen and (max-width: 600px) {
-  .btn {
-    font-family: 'Quicksand', sans-serif;
-    position: absolute;
-    bottom: 3em;
-    right: 0em;
-    z-index: 2;
-  }
-}
-
 .App-link {
   color: #61dafb;
 }
@@ -48,7 +38,6 @@ body {
 ul{
   list-style-type: none;
   font-family: 'Quicksand', sans-serif;
-  
 }
 .hover:hover{
   transform: scale(1.1);
