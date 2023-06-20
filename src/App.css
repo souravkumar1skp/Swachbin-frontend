@@ -38,14 +38,6 @@ body {
   display: none;
 }
 
-.btn {
-  font-family: 'Quicksand', sans-serif;
-  position: absolute;
-  bottom: 1em;
-  right: 0em;
-  z-index: 2;
-}
-
 .map {
   position: absolute;
   z-index: 1;
@@ -55,6 +47,8 @@ body {
 
 ul{
   list-style-type: none;
+  font-family: 'Quicksand', sans-serif;
+  
 }
 .hover:hover{
   transform: scale(1.1);

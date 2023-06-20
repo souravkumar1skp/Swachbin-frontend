@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import './Map.css'
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoic291cmF2LWt1bWFyIiwiYSI6ImNsaG90c2RqMTAwZXczZW52bnhndG16N3IifQ.3dSBA4fdrNrthW8f5xrkig';
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const Map = () => {
   const mapContainer = useRef(null);
@@ -11,6 +11,7 @@ const Map = () => {
   // const [zoom, setZoom] = useState(1);
   
   useEffect(() => {
+    // if(map) return;
     const geolocateControl = new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true
@@ -45,7 +46,7 @@ const Map = () => {
   });
     map.addControl(geolocateControl);
     
-    return () => map.remove();
+    // return () => map.remove();
   });
 
   return (
