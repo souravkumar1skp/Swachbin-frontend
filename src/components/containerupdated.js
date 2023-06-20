@@ -48,7 +48,7 @@ const App = () => {
     });
       map.current.addControl(geolocateControl);
       route();
-  }, [map.current]);
+  });
 
   const route = () => {
     map.current.on('load', () => {
