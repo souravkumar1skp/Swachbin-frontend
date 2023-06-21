@@ -18,7 +18,8 @@ const App = () => {
         positionOptions: {
           enableHighAccuracy: true
         },
-        trackUserLocation: true
+        trackUserLocation: true,
+        showUserHeading: true
       });
   
       geolocateControl.on('geolocate', e => {

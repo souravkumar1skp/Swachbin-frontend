@@ -40,14 +40,12 @@ fetch("https://swachbin-sever.onrender.com/add", requestOptions)
   .catch(error => console.log('error', error));
 };
   return (
-    <div>
-      <Navbar />
-        <div id="upper">
-          {/* <div className="map"><Map /></div> */}
-          <Map />
-          {/* <div className="btn"> */}
+    <>
+    <Navbar />
+    <div id="parent">
+          <div id="containit"><Map /></div>
           <Grow in='true'>
-          <ul style={{display: 'flex', flexDirection:'row', position: "absolute", bottom: "2.5rem", right: 0}}>
+          <ul className="btnn" style={{display: 'flex', flexDirection:'row'}}>
             
             <li className="hover">
             <Button type="submit" variant="contained" sx={{borderRadius: 50, color: grey[150], margin:'5px'}} startIcon={<TravelExploreRoundedIcon/>}>locate</Button>
@@ -58,9 +56,7 @@ fetch("https://swachbin-sever.onrender.com/add", requestOptions)
             <ToastContainer style={{display: "none"}}/>
             </li>
           </ul></Grow>
-          {/* </div> */}
-        </div>
-    </div>
+    </div></>
   );
 }
 
