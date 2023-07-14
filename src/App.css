@@ -16,34 +16,33 @@ body {
   color: #61dafb;
 }
 
-.mapboxgl-ctrl-attrib-inner{
+.mapboxgl-ctrl-attrib-inner {
   display: none;
 }
 
-ul{
+ul {
   list-style-type: none;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
-.hover:hover{
+.hover:hover {
   transform: scale(1.1);
   transition-duration: 200ms;
 }
 
-#containit
-{
+#containit {
   height: 100vh;
   width: 100vw;
   position: relative;
 }
 
-#parent{
+#parent {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
 }
-.btnn{
+.btnn {
   bottom: 0;
   position: absolute;
   right: 0;
