@@ -45,6 +45,9 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const dispatch = useDispatch();
   const nav = useNavigate();
+  const sign = () => {
+    nav("/SignUp");
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -143,7 +146,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/SignUp" variant="body2">
+                <Link onClick={sign} href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
