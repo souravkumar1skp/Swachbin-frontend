@@ -38,12 +38,18 @@ ul {
 #parent {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
   flex-wrap: wrap;
 }
 .btnn {
-  bottom: 0;
+  padding: 0;
+  top: 11%;
+  left: 0.5vw;
   position: absolute;
-  right: 0;
+}
+.marker {
+  width: 20px;
+  height: 20px;
+  background-color: blue;
+  border-radius: 50%;
+  cursor: pointer;
 }

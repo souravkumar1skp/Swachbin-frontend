@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import "./Map.css";
 import SwipeableEdgeDrawer from "./dragable";
 import { addPath } from "../redux/Slice/path";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -15,7 +15,20 @@ const App = () => {
   const values = useRef(0);
   const [vis, setVis] = useState(false);
   const dispatch = useDispatch();
+  const mark = useSelector((state) => state);
+  console.log(mark.history);
 
+  navigator.geolocation.getCurrentPosition(addpos);
+  function addpos(e) {
+    start1.current = e.coords.latitude;
+    start2.current = e.coords.longitude;
+    dispatch(
+      addPath({
+        lat: start1.current.toFixed(4),
+        lng: start2.current.toFixed(4),
+      })
+    );
+  }
   useEffect(() => {
     if (map.current) return; // initialize map only once
     const geolocateControl = new mapboxgl.GeolocateControl({
@@ -24,17 +37,6 @@ const App = () => {
       },
       trackUserLocation: true,
       showUserHeading: true,
-    });
-
-    geolocateControl.on("geolocate", (e) => {
-      start1.current = e.coords.latitude;
-      start2.current = e.coords.longitude;
-      dispatch(
-        addPath({
-          lat: start1.current.toFixed(4),
-          lng: start2.current.toFixed(4),
-        })
-      );
     });
 
     setTimeout(() => {
@@ -173,6 +175,33 @@ const App = () => {
       instructions.innerHTML = `<ol>${tripInstructions}</ol>`;
     }
   }
+  useEffect(() => {
+    const markers = mark.history.data;
+
+    markers.forEach((markerData) => {
+      // const { coordinates, popupContent } = markerData;
+      const coordinates = [markerData.lat, markerData.lng];
+      const popupContent = `<h3>${markerData.category}</h3><p>${markerData.description}</p><p>${markerData.user_id.name}</p><p>${markerData.user_id.email}</p>`;
+
+      const popup = new mapboxgl.Popup({ closeButton: false }).setHTML(
+        popupContent
+      );
+
+      const marker = new mapboxgl.Marker()
+        .setLngLat(coordinates)
+        .addTo(map.current)
+        .setPopup(popup);
+
+      marker.getElement().addEventListener("mouseenter", () => {
+        popup.addTo(map.current);
+      });
+      marker.getElement().addEventListener("mouseleave", () => {
+        popup.remove(map.current);
+      });
+    });
+
+    return () => map.current.remove();
+  }, [mark.history.data]);
 
   return (
     <>
