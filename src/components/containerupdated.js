@@ -18,17 +18,17 @@ const App = () => {
   const mark = useSelector((state) => state);
   console.log(mark.history);
 
-  navigator.geolocation.getCurrentPosition(addpos);
-  function addpos(e) {
-    start1.current = e.coords.latitude;
-    start2.current = e.coords.longitude;
-    dispatch(
-      addPath({
-        lat: start1.current.toFixed(4),
-        lng: start2.current.toFixed(4),
-      })
-    );
-  }
+  // navigator.geolocation.getCurrentPosition(addpos);
+  // function addpos(e) {
+  //   start1.current = e.coords.latitude;
+  //   start2.current = e.coords.longitude;
+  //   dispatch(
+  //     addPath({
+  //       lat: start1.current.toFixed(4),
+  //       lng: start2.current.toFixed(4),
+  //     })
+  //   );
+  // }
   useEffect(() => {
     if (map.current) return; // initialize map only once
     const geolocateControl = new mapboxgl.GeolocateControl({
@@ -38,7 +38,16 @@ const App = () => {
       trackUserLocation: true,
       showUserHeading: true,
     });
-
+    geolocateControl.on("geolocate", (e) => {
+      start1.current = e.coords.latitude;
+      start2.current = e.coords.longitude;
+      dispatch(
+        addPath({
+          lat: start1.current.toFixed(4),
+          lng: start2.current.toFixed(4),
+        })
+      );
+    });
     setTimeout(() => {
       geolocateControl.trigger();
     }, 2500);
