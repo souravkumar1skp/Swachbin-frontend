@@ -56,6 +56,7 @@ export default function SignIn() {
       console.log(err);
     }
     const data = new FormData(event.currentTarget);
+    const id = toast.loading("Retriving Your Information (30s)");
     try {
       const response = await axios.post(
         "https://swachbin-sever.onrender.com/user/getid",
@@ -67,7 +68,12 @@ export default function SignIn() {
           headers: { "Content-Type": "application/json" },
         }
       );
-      toast.success(`Welcome ${response.data.name}`);
+      toast.update(id, {
+            render: `Welcome ${response.data.name}`,
+            type: "success",
+            isLoading: false,
+            autoClose: 3000,
+          });
       dispatch(
         addDetail({
           flag: true,
@@ -79,7 +85,12 @@ export default function SignIn() {
         nav("/Home");
       }, 2000);
     } catch (err) {
-      toast.error(`${err.response.data.error}`);
+      toast.update(id, {
+            render: `${err.response.data.error}`,
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+          });
     }
   };
 
