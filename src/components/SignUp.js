@@ -52,6 +52,7 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    const id = toast.loading("Adding Your Information");
     try {
       const response = await axios.post(
         "https://swachbin-sever.onrender.com/user",
@@ -65,12 +66,22 @@ export default function SignUp() {
         }
       );
       console.log(response);
-      toast.success(`${response.data.success}`);
+      toast.update(id, {
+            render: `${response.data.success}`,
+            type: "success",
+            isLoading: false,
+            autoClose: 3000,
+          });
       setTimeout(() => {
         nav("/");
       }, 2000);
     } catch (err) {
-      toast.error(`${err.response.data.error}`);
+      toast.update(id, {
+            render: `${err.response.data.error}`,
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+          });
     }
   };
 
