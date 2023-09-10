@@ -55,7 +55,7 @@ export default function SignUp() {
     const id = toast.loading("Adding Your Information");
     try {
       const response = await axios.post(
-        "https://swachbin-sever.onrender.com/user",
+        "https://sarathi-vercel.vercel.app/user",
         {
           name: data.get("firstName") + " " + data.get("lastName"),
           email: data.get("email"),

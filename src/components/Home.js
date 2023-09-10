@@ -34,7 +34,7 @@ function Home() {
     };
 
     const id = toast.loading("Sending your Location....");
-    fetch("https://swachbin-sever.onrender.com/add", requestOptions)
+    fetch("https://sarathi-vercel.vercel.app/add", requestOptions)
       .then((response) => {
         if (response.status === 200)
           toast.update(id, {
@@ -81,7 +81,7 @@ function Home() {
     };
 
     const id = toast.loading("Sending your Location....");
-    fetch("https://swachbin-sever.onrender.com/add", requestOptions)
+    fetch("https://sarathi-vercel.vercel.app/add", requestOptions)
       .then((response) => {
         if (response.status === 200)
           toast.update(id, {
