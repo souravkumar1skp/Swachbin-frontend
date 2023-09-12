@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchData = createAsyncThunk("fetchData", async () => {
-  const response = await fetch("https://swachbin-sever.onrender.com/search/");
+  const response = await fetch("https://sarathi-vercel.vercel.app/search/");
   return response.json();
 });
 const historySlice = createSlice({
