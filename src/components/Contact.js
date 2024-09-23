@@ -29,8 +29,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://aidhelper.vercel.app/">
+        aidhelper
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -38,16 +38,40 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const dispatch = useDispatch();
   const nav = useNavigate();
+
   const sign = () => {
     nav("/SignUp");
   };
+
+  const handleGuestLogin = (event) => {
+    event.preventDefault();
+    try {
+      dispatch(fetchData());
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(
+      addDetail({
+        flag: true,
+        name: "Guest",
+        id: 0,
+        email: "guest@gmail.com",
+      })
+    );
+    toast.success("Welcome Guest", {
+      isLoading: false,
+      autoClose: 3000,
+    });
+    setTimeout(() => {
+      nav("/Home");
+    }, 2000);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -69,16 +93,17 @@ export default function SignIn() {
         }
       );
       toast.update(id, {
-            render: `Welcome ${response.data.name}`,
-            type: "success",
-            isLoading: false,
-            autoClose: 3000,
-          });
+        render: `Welcome ${response.data.name}`,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
       dispatch(
         addDetail({
           flag: true,
           name: response.data.name,
           id: response.data._id,
+          email: response.data.email,
         })
       );
       setTimeout(() => {
@@ -86,11 +111,11 @@ export default function SignIn() {
       }, 2000);
     } catch (err) {
       toast.update(id, {
-            render: `${err.response.data.error}`,
-            type: "error",
-            isLoading: false,
-            autoClose: 3000,
-          });
+        render: `${err.response.data.error}`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -112,12 +137,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -152,12 +172,12 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link onClick={handleGuestLogin} href="" variant="body2">
+                  Sign in as guest
                 </Link>
               </Grid>
               <Grid item>
-                <Link onClick={sign} href="#" variant="body2">
+                <Link onClick={sign} href="" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
