@@ -6,12 +6,14 @@ const detailSlice = createSlice({
     isAvailaible: false,
     name: null,
     id: null,
+    email: null,
   },
   reducers: {
     addDetail: (state, action) => {
       state.isAvailaible = action.payload.flag;
       state.name = action.payload.name;
       state.id = action.payload.id;
+      state.email = action.payload.email;
     },
   },
 });
