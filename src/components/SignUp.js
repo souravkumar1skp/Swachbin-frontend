@@ -26,8 +26,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://aidhelper.vercel.app/">
+        aidhelper
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -67,21 +67,21 @@ export default function SignUp() {
       );
       console.log(response);
       toast.update(id, {
-            render: `${response.data.success}`,
-            type: "success",
-            isLoading: false,
-            autoClose: 3000,
-          });
+        render: `${response.data.success}`,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
       setTimeout(() => {
         nav("/");
       }, 2000);
     } catch (err) {
       toast.update(id, {
-            render: `${err.response.data.error}`,
-            type: "error",
-            isLoading: false,
-            autoClose: 3000,
-          });
+        render: `${err.response.data.error}`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -171,7 +171,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link onClick={sign} href="#" variant="body2">
+                <Link onClick={sign} href="" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
