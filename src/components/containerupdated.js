@@ -14,21 +14,10 @@ const App = () => {
   const start2 = useRef(0);
   const values = useRef(0);
   const [vis, setVis] = useState(false);
+  const pathAdded = useRef(false);
   const dispatch = useDispatch();
   const mark = useSelector((state) => state);
-  console.log(mark.history);
 
-  // navigator.geolocation.getCurrentPosition(addpos);
-  // function addpos(e) {
-  //   start1.current = e.coords.latitude;
-  //   start2.current = e.coords.longitude;
-  //   dispatch(
-  //     addPath({
-  //       lat: start1.current.toFixed(4),
-  //       lng: start2.current.toFixed(4),
-  //     })
-  //   );
-  // }
   useEffect(() => {
     if (map.current) return; // initialize map only once
     const geolocateControl = new mapboxgl.GeolocateControl({
@@ -41,12 +30,16 @@ const App = () => {
     geolocateControl.on("geolocate", (e) => {
       start1.current = e.coords.latitude;
       start2.current = e.coords.longitude;
-      dispatch(
-        addPath({
-          lat: start1.current.toFixed(4),
-          lng: start2.current.toFixed(4),
-        })
-      );
+      if (!pathAdded.current) {
+        console.log("pathAdded");
+        dispatch(
+          addPath({
+            lat: start1.current.toFixed(4),
+            lng: start2.current.toFixed(4),
+          })
+        );
+        pathAdded.current = true; // Update the ref
+      }
     });
     setTimeout(() => {
       geolocateControl.trigger();
@@ -72,10 +65,6 @@ const App = () => {
     route();
   });
   const route = () => {
-    // map.current.on("load", () => {
-    // make an initial directions request that
-    // starts and ends at the same location
-    // getRoute(start);
     map.current.on("click", (event) => {
       const coords = Object.keys(event.lngLat).map((key) => event.lngLat[key]);
       const end = {
@@ -168,9 +157,7 @@ const App = () => {
           },
         });
       }
-      // get the sidebar and add the instructions
-      // dispatch(addPath({ val: data }));
-      // console.log(items);
+
       const steps = data.legs[0].steps;
       setVis(true);
       const instructions = document.getElementById("inst");
@@ -187,27 +174,31 @@ const App = () => {
   useEffect(() => {
     const markers = mark.history.data;
 
-    markers.forEach((markerData) => {
-      // const { coordinates, popupContent } = markerData;
-      const coordinates = [markerData.lat, markerData.lng];
-      const popupContent = `<h3>${markerData.category}</h3><p>${markerData.description}</p><p>${markerData.user_id.name}</p><p>${markerData.user_id.email}</p>`;
+    // Check if markers exist and is an array
+    if (Array.isArray(markers) && markers.length > 0) {
+      markers.forEach((markerData) => {
+        const coordinates = [markerData.lat, markerData.lng];
+        const popupContent = `<h3>${markerData.category}</h3><p>${markerData.description}</p><p>${markerData.user_id.name}</p><p>${markerData.user_id.email}</p>`;
 
-      const popup = new mapboxgl.Popup({ closeButton: false }).setHTML(
-        popupContent
-      );
+        const popup = new mapboxgl.Popup({ closeButton: false }).setHTML(
+          popupContent
+        );
 
-      const marker = new mapboxgl.Marker()
-        .setLngLat(coordinates)
-        .addTo(map.current)
-        .setPopup(popup);
+        const marker = new mapboxgl.Marker()
+          .setLngLat(coordinates)
+          .addTo(map.current)
+          .setPopup(popup);
 
-      marker.getElement().addEventListener("mouseenter", () => {
-        popup.addTo(map.current);
+        marker.getElement().addEventListener("mouseenter", () => {
+          popup.addTo(map.current);
+        });
+        marker.getElement().addEventListener("mouseleave", () => {
+          popup.remove(map.current);
+        });
       });
-      marker.getElement().addEventListener("mouseleave", () => {
-        popup.remove(map.current);
-      });
-    });
+    } else {
+      console.log("No markers to display.");
+    }
 
     return () => map.current.remove();
   }, [mark.history.data]);
