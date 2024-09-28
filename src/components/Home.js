@@ -31,7 +31,7 @@ function Home() {
   const locate = items.path || { lat: 0, lng: 0 }; // Default coordinates
 
   const showSnackbar = (message, severity = "info") => {
-    const id = new Date().getTime(); // Unique ID for each snackbar
+    const id = Math.random().toString(36); // Unique ID for each snackbar
     setSnackbars((prev) => [...prev, { id, message, severity }]);
   };
 
@@ -196,12 +196,7 @@ function Home() {
               key={snackbar.id}
               open
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              onClose={() => {
-                setSnackbars((prev) =>
-                  prev.filter((s) => s.id !== snackbar.id)
-                );
-              }}
-              style={{ marginBottom: index * 60 }} // Adjust margin based on index to space them out
+              style={{ marginBottom: `${index * 10}vh` }} // Adjust margin based on index to space them out
             >
               <Alert
                 onClose={() => {
