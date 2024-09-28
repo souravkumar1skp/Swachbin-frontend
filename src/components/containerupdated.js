@@ -172,13 +172,14 @@ const App = () => {
     }
   }
   useEffect(() => {
+    if (!map.current) return;
     const markers = mark.history.data;
 
     // Check if markers exist and is an array
     if (Array.isArray(markers) && markers.length > 0) {
       markers.forEach((markerData) => {
         const coordinates = [markerData.lat, markerData.lng];
-        const popupContent = `<h3>${markerData.category}</h3><p>${markerData.description}</p><p>${markerData.user_id.name}</p><p>${markerData.user_id.email}</p>`;
+        const popupContent = `<h3>${markerData.category}</h3><p>${markerData.description}</p><p>Name: ${markerData.user_id.name}</p><p>Email: ${markerData.user_id.email}</p>`;
 
         const popup = new mapboxgl.Popup({ closeButton: false }).setHTML(
           popupContent
@@ -200,7 +201,7 @@ const App = () => {
       console.log("No markers to display.");
     }
 
-    return () => map.current.remove();
+    // return () => map.current.remove();
   }, [mark.history.data]);
 
   return (
